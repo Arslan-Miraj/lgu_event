@@ -11,8 +11,8 @@
       <a href="#about" class="hover:text-lime-400">About</a>
     </nav>
     <div class="space-x-4">
-      <a href="/register" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Register</a>
-      <a href="#login" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Login</a>
+      <a href="{{ route('account.register') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Register</a>
+      <a href="{{ route('account.login') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Login</a>
     </div>
   </header>
 

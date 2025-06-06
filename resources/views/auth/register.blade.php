@@ -16,7 +16,7 @@
         <input type="password" name="password" id="password" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-lime-400" placeholder="Password">
       </div>
       <button type="submit" class="w-full bg-lime-400 text-black py-2 rounded font-semibold">Register</button>
-      <p class="text-sm text-gray-400 text-center">Already have an account? <a href="/login" class="text-lime-400 hover:underline">Login</a></p>
+      <p class="text-sm text-gray-400 text-center">Already have an account? <a href="{{ route('account.login') }}" class="text-lime-400 hover:underline">Login</a></p>
 
       <div class="hidden p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-600 dark:bg-red-400 dark:text-red-800" role="alert" id="error">
         <ul id="error-list" class="list-none list-inside space-y-1"></ul>
@@ -41,10 +41,11 @@
             data: $('#registerProcess').serializeArray(),
             dataType: 'json',
             success: function(response){
-              // console.log(response);
+              $('#error').addClass('hidden');
+              $('#success').addClass('hidden');
               let errors = response.errors;
               
-              if (errors && errors.length > 0) {
+              if (errors && Object.keys(errors).length > 0) {
                 // Loop through errors and append to list
                 $.each(errors, function(field, message) {
                   $('#error-list').append('<li data-field="' + field + '">' + message + '</li>');
@@ -53,12 +54,12 @@
                 $('#error').removeClass('hidden');
               }
               else if (response.status == true){
-                
+                $('#success').removeClass('hidden');
                 setTimeout(() => {
-                  $('#success').removeClass('hidden');
-                }, 8000);
-                window.location.href = '{{ route("account.login") }}';
-                $('#registerProcess')[0].reset();
+                  $('#success').addClass('hidden');
+                  window.location.href = '{{ route("account.login") }}';
+                  $('#registerProcess')[0].reset();
+                }, 2000);
               }
             }
           });
