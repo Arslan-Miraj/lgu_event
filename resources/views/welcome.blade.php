@@ -11,9 +11,17 @@
       <a href="#about" class="hover:text-lime-400">About</a>
     </nav>
     <div class="space-x-4">
-      <a href="{{ route('account.register') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Register</a>
-      <a href="{{ route('account.login') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Login</a>
-    </div>
+      @auth
+        <span class="text-white font-semibold">Welcome, {{ Auth::user()->name }}</span>
+        <form action="{{ route('account.logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit" class="bg-red-500 px-4 py-2 rounded text-white font-semibold hover:bg-red-600">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('account.register') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Register</a>
+        <a href="{{ route('account.login') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Login</a>
+      @endauth
+      </div>
   </header>
 
   <!-- Hero Section -->
