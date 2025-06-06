@@ -135,4 +135,8 @@
     <a href="/login" class="border border-lime-400 px-6 py-3 rounded-full font-semibold text-lime-400">Login</a>
   </section>
 
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-center py-8 text-gray-400">
+    <p>&copy; 2025 LGU Event Management System</p>
+  </footer>
 @endsection
