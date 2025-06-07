@@ -7,7 +7,7 @@
     <h2 class="text-3xl font-bold text-center text-lime-400 mb-6">Login to LGU Events</h2>
     <form action="" method="POST" class="space-y-5" id="loginProcess">
       <div>
-        <input type="email" name="email" id="email" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-lime-400" placeholder="Email">
+        <input type="text" name="email" id="email" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-lime-400" placeholder="Email">
       </div>
       <div>
         <input type="password" name="password" id="password" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-lime-400" placeholder="Password">
@@ -55,17 +55,7 @@
             $('#success').removeClass('hidden');
             setTimeout(() => {
               $('#success').addClass('hidden');
-              if (response.role === 'superadmin'){
-                window.location.href = '{{ route("super.admin.dashboard") }}';
-              }
-              if (response.role === 'admin'){
-                window.location.href = '{{ route("admin.dashboard") }}';
-              }
-
-              if (response.role === 'user'){
-                window.location.href = '{{ route("home") }}';
-              }
-              
+              window.location.href = response.redirect;
               $('#loginProcess')[0].reset();
             }, 2000);
           }

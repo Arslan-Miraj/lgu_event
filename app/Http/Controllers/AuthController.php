@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -58,11 +59,18 @@ class AuthController extends Controller
         if ($validation->passes()){
             if (Auth::attempt($request->only('email', 'password'))){
                 $user = Auth::user();
-                return response()->json([
-                    'status' => true,
-                    // 'errors' => []
-                    'role' => $user->role,
-                ]);
+                // return response()->json([
+                //     'status' => true,
+                //     // 'errors' => []
+                //     'role' => $user->role,
+                // ]);
+                if ($user->role === UserRole::SuperAdmin) {
+                    return response()->json(['status' => true, 'redirect' => route('super.admin.dashboard')]);
+                } elseif ($user->role === UserRole::Admin) {
+                    return response()->json(['status' => true, 'redirect' => route('admin.dashboard')]);
+                } else {
+                    return response()->json(['status' => true, 'redirect' => route('home')]);
+                }
             }
             return response()->json([
             'status' => false,
