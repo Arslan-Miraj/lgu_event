@@ -57,9 +57,11 @@ class AuthController extends Controller
 
         if ($validation->passes()){
             if (Auth::attempt($request->only('email', 'password'))){
+                $user = Auth::user();
                 return response()->json([
                     'status' => true,
-                    'errors' => []
+                    // 'errors' => []
+                    'role' => $user->role,
                 ]);
             }
             return response()->json([

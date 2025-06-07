@@ -14,10 +14,25 @@ Route::get('/account/login', [AuthController::class, 'login'])->name('account.lo
 Route::post('/account/login-process', [AuthController::class, 'loginProcess'])->name('account.loginProcess');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('account.logout');
-// Route::get('/login', function () {
-//     return view('auth.login');
-// });
 
-// Route::get('/signup', function () {
-//     return view('auth.signup');
-// });
+
+Route::get('/super_admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('super.admin.dashboard');
+
+Route::get('/assign_admin', function () {
+    return view('admin.assign_admin');
+});
+
+Route::get('/admin', function () {
+    return "Admin Page";
+})->name('admin.dashboard');
+
+
+Route::get('/add_society', function () {
+    return view('admin.add_society');
+});
+
+Route::get('/view_events', function () {
+    return view('admin.view_events');
+});

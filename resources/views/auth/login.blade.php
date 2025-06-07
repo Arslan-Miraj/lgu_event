@@ -55,7 +55,17 @@
             $('#success').removeClass('hidden');
             setTimeout(() => {
               $('#success').addClass('hidden');
-              window.location.href = '{{ route("home") }}';
+              if (response.role === 'superadmin'){
+                window.location.href = '{{ route("super.admin.dashboard") }}';
+              }
+              if (response.role === 'admin'){
+                window.location.href = '{{ route("admin.dashboard") }}';
+              }
+
+              if (response.role === 'user'){
+                window.location.href = '{{ route("home") }}';
+              }
+              
               $('#loginProcess')[0].reset();
             }, 2000);
           }
