@@ -22,23 +22,27 @@ class SocietiesController extends Controller
             // Checking if user already registered as student and updating to admin
             $user = User::where('email', $request->admin_email)->first();
             if ($user){
-                $user->update([
-                    'name' => $request->admin_name,
-                    'role' => 'admin'
-                ]);
+                if ($user->role !== 'admin'){
+                        $user->update([
+                        'name' => $request->admin_name,
+                        'role' => 'admin'
+                    ]);
+                }
+                else{
+                    $user->update([
+                        'name' => $request->admin_name,
+                    ]);
+                }
+                
 
                 $society = Society::create([
-                    'name' => $request->society_name
+                    'name' => $request->society_name,
+                    'head_id' => $user->id
                 ]);
                 $society->save();
 
             }
             else{
-                $society = Society::create([
-                    'name' => $request->society_name
-                ]);
-                $society->save();
-
                 $admin = User::create([
                     'name' => $request->admin_name,
                     'role' => 'admin',
@@ -46,6 +50,12 @@ class SocietiesController extends Controller
                     'password' => Hash::make('123456')
                 ]);
                 $admin->save();
+
+                $society = Society::create([
+                    'name' => $request->society_name,
+                    'head_id' => $admin->id
+                ]);
+                $society->save();
             }
 
             return response()->json([

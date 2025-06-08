@@ -1,28 +1,44 @@
 @extends('auth.layout.app')
 @section('content')
 <body class="bg-gray-900 text-white">
-
+    @php
+      use App\Enums\UserRole;
+    @endphp
   <!-- Navbar -->
-  <header class="p-6 bg-gray-800 shadow-lg flex items-center justify-between">
-    <h1 class="text-2xl font-bold text-lime-400">LGU Events</h1>
-    <nav class="flex-1 flex justify-center space-x-6">
-      <a href="#events" class="hover:text-lime-400">Home</a>
-      <a href="#events" class="hover:text-lime-400">Events</a>
-      <a href="#about" class="hover:text-lime-400">About</a>
-    </nav>
-    <div class="space-x-4">
-      @auth
+<header class="p-6 bg-gray-800 shadow-lg flex items-center justify-between">
+  <h1 class="text-2xl font-bold text-lime-400">LGU Events</h1>
+  <nav class="flex-1 flex justify-center space-x-6">
+    <a href="#events" class="hover:text-lime-400">Home</a>
+    <a href="#events" class="hover:text-lime-400">Events</a>
+    <a href="#about" class="hover:text-lime-400">About</a>
+  </nav>
+  <div class="space-x-4">
+    @auth
+      <div class="flex items-center space-x-4">
         <span class="text-white font-semibold">Welcome, {{ Auth::user()->name }}</span>
-        <form action="{{ route('account.logout') }}" method="POST" class="inline">
-            @csrf
-            <button type="submit" class="bg-red-500 px-4 py-2 rounded text-white font-semibold hover:bg-red-600">Logout</button>
-        </form>
-      @else
-        <a href="{{ route('account.register') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Register</a>
-        <a href="{{ route('account.login') }}" class="bg-lime-400 px-4 py-2 rounded text-black font-semibold">Login</a>
-      @endauth
+
+        @if(Auth::user()->role === UserRole::SuperAdmin)
+          <a href="{{ route('super.admin.dashboard') }}"
+            class="bg-lime-500 px-4 py-2 rounded text-white font-semibold hover:bg-lime-600">
+            Go to Dashboard
+          </a>
+        @endif
       </div>
-  </header>
+    @else
+      <div class="flex items-center space-x-4">
+        <a href="{{ route('account.register') }}"
+          class="bg-lime-400 px-4 py-2 rounded text-black font-semibold hover:bg-lime-300">
+            Register
+        </a>
+        <a href="{{ route('account.login') }}"
+          class="bg-lime-400 px-4 py-2 rounded text-black font-semibold hover:bg-lime-300">
+            Login
+        </a>
+      </div>
+    @endauth
+
+  </div>
+</header>
 
   <!-- Hero Section -->
   <section class="text-center py-20 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">

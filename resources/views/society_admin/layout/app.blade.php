@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Super Admin Dashboard</title>
+  <title>Society Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex">
@@ -13,24 +13,36 @@
   <aside class="w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4">
     <h2 class="text-2xl font-bold text-lime-400 mb-6">Super Admin</h2>
     <nav class="flex flex-col space-y-2">
-        <a href="{{ route('super.admin.dashboard') }}"
+        {{-- <a href="{{ route('super.admin.dashboard') }}"
             class="{{ request()->routeIs('super.admin.dashboard') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
             Dashboard
         </a>
         <a href="{{ route('super.admin.addSociety') }}"
             class="{{ request()->routeIs('super.admin.addSociety') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
             Add Society
+        </a> --}}
+
+        <a href="#"
+            class="{{ request()->is('assign_admin') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+            Create Event
         </a>
 
-    <a href="/assign_admin"
-        class="{{ request()->is('assign_admin') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-        Assign Admin
-    </a>
-
-    <a href="/view_events"
-        class="{{ request()->is('view_events') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-        View Events
-    </a>
+        {{-- <a href="#"
+            class="{{ request()->is('view_events') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+            View Events
+        </a> --}}
+        <a href="{{ route('admin.viewHeadProfile') }}"
+            class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+            Head Profile
+        </a>
+        <a href="{{ route('admin.viewHeadProfile') }}"
+            class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+            Society Profile
+        </a>
+        <a href="{{ route('admin.viewHeadProfile') }}"
+            class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+            Members Profile
+        </a>
     </nav>
     <form action="{{ route('account.logout') }}" method="POST" class="mt-auto">
       <button type="submit" class="bg-red-600 hover:bg-red-700 text-white w-full py-2 rounded">Logout</button>
