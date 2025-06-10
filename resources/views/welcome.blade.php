@@ -48,31 +48,48 @@
     <a href="#events" class="bg-lime-400 text-black px-6 py-3 rounded-full font-semibold z-10 relative inline-block">Explore Events</a>
   </section>
 
-  <!-- Upcoming Events -->
-  <section id="events" class="py-16 px-6 bg-gray-800">
-    <h3 class="text-3xl font-semibold mb-8 text-center">Upcoming Events</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-      <!-- Event cards -->
-      <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
-        <img src="https://source.unsplash.com/400x250/?conference" alt="event" class="rounded mb-4">
-        <h4 class="text-xl font-bold">Tech Conference 2025</h4>
-        <p class="text-gray-300 mb-4">March 14, 2025 - Auditorium</p>
-        <button class="bg-lime-400 text-black px-4 py-2 rounded">Register</button>
-      </div>
-      <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
-        <img src="https://source.unsplash.com/400x250/?culture,event" alt="event" class="rounded mb-4">
-        <h4 class="text-xl font-bold">Cultural Gala</h4>
-        <p class="text-gray-300 mb-4">April 10, 2025 - Main Hall</p>
-        <button class="bg-lime-400 text-black px-4 py-2 rounded">Register</button>
-      </div>
-      <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
-        <img src="https://source.unsplash.com/400x250/?startup" alt="event" class="rounded mb-4">
-        <h4 class="text-xl font-bold">Startup Pitch Night</h4>
-        <p class="text-gray-300 mb-4">May 2, 2025 - Conference Room</p>
-        <button class="bg-lime-400 text-black px-4 py-2 rounded">Register</button>
-      </div>
+<section id="events" class="py-20 px-6 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800 text-center">
+  <h3 class="text-4xl font-bold mb-12 text-lime-400 tracking-wide">📅 Upcoming Events</h3>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+
+    <!-- Event Card Container -->
+    <div class="flex flex-col items-center space-y-4">
+      <!-- Card -->
+      <a href="/event/startup-pitch-night" class="block group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-lime-400/40 transform hover:scale-[1.03] transition duration-300 w-full cursor-pointer" aria-label="View details for Startup Pitch Night">
+
+        <!-- Decorative Top Line -->
+        <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-lime-400 rounded-full shadow-md z-30"></div>
+
+        <!-- Event Image -->
+        <img src="{{ asset('assets/imgs/w12.jpg') }}" alt="Startup Pitch" class="w-full h-80 object-cover z-10 relative">
+
+        <!-- Overlay Content -->
+        <div class="absolute inset-0 bg-black/60 flex flex-col justify-end text-left p-8 z-20">
+          <p class="text-lime-400 font-bold text-base mb-1">Organized by: Entrepreneur Society</p>
+          <p class="text-white text-sm">📍 Conference Room</p>
+          <p class="text-white text-sm">⏱️ May 2, 2025 — 5 PM to 8 PM</p>
+        </div>
+
+      </a>
+
+
+      <!-- Event Name Below Card -->
+      <h4 class="text-lime-500 text-2xl font-semibold">Startup Pitch Night</h4>
     </div>
-  </section>
+
+    <!-- Copy above card block for more events -->
+
+  </div>
+
+  <!-- View All Button -->
+  <div class="mt-12">
+    <a href="#" class="inline-block bg-lime-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-lime-500 transition">
+      View All Events
+    </a>
+  </div>
+</section>
+
 
   <!-- About Section -->
   <section id="about" class="py-16 px-6 bg-gray-900 text-center">
@@ -87,7 +104,7 @@
   </section>
 
   <!-- Featured Societies -->
-  <section class="py-16 px-6 bg-gray-800">
+  {{-- <section class="py-16 px-6 bg-gray-800">
     <h3 class="text-3xl font-semibold mb-8 text-center">Featured Societies</h3>
     <div class="flex flex-wrap justify-center gap-6">
       <div class="bg-gray-700 p-4 rounded-lg w-64 text-center">
@@ -101,7 +118,7 @@
         <p class="text-gray-300">Organizes cultural and artistic events.</p>
       </div>
     </div>
-  </section>
+  </section> --}}
 
   <!-- Event Categories -->
   <section class="py-16 px-6 bg-gray-900 text-center">
@@ -113,6 +130,60 @@
       <span class="bg-lime-400 text-black px-4 py-2 rounded-full font-semibold">🏆 Competitions</span>
     </div>
   </section>
+
+  <!-- Our Societies -->
+<section id="societies" class="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-center">
+  <h3 class="text-4xl font-bold mb-12 text-lime-400 tracking-wide">🌟 Our Societies</h3>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto ">
+    <!-- Society Card -->
+    <a href="#"
+       class="bg-gray-800 rounded-2xl shadow-lg hover:shadow-lime-400/40 hover:scale-[1.02] transform transition-all duration-300 p-6 text-left ">
+      
+      <div class="flex items-center space-x-4 mb-4">
+        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041880.png"
+             alt="Tech Society"
+             class="w-16 h-16 object-cover rounded-full border-2 border-lime-400 shadow-md">
+        <h4 class="text-2xl font-bold text-white ">Tech Society</h4>
+      </div>
+
+      <p class="text-gray-300 text-md leading-relaxed">
+        Hosts coding competitions, hackathons, and technical workshops for LGU students.
+      </p>
+
+      <div class="mt-4">
+        <span class="inline-block bg-lime-500 text-black px-3 py-1 text-sm rounded-full font-semibold">
+          View Members →
+        </span>
+      </div>
+    </a>
+
+    <!-- Another Society Card -->
+    <a href="#"
+       class="bg-gray-800 rounded-2xl shadow-lg hover:shadow-lime-400/40 hover:scale-[1.02] transform transition-all duration-300 p-6 text-left">
+      
+      <div class="flex items-center space-x-4 mb-4">
+        <img src="https://cdn-icons-png.flaticon.com/512/3449/3449338.png"
+             alt="Arts Club"
+             class="w-16 h-16 object-cover rounded-full border-2 border-lime-400 shadow-md">
+        <h4 class="text-2xl font-bold text-white">Arts Club</h4>
+      </div>
+
+      <p class="text-gray-300 text-sm leading-relaxed">
+        Focuses on cultural exhibitions, drama performances, and art showcases.
+      </p>
+
+      <div class="mt-4">
+        <span class="inline-block bg-lime-500 text-black px-3 py-1 text-sm rounded-full font-semibold">
+          View Members
+        </span>
+      </div>
+    </a>
+
+    <!-- Add more cards below as needed -->
+  </div>
+</section>
+
 
   <!-- How It Works -->
   <section class="py-16 px-6 bg-gray-800">

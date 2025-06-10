@@ -76,14 +76,3 @@
 </div>
 @endsection
 
-@section('customJS')
-<script>
-  $(document).ready(function(){
-
-    $('#updateSocietyProfile').submit(function(e){
-      e.preventDefault();
-    })
-  });
-
-</script>
-@endsection

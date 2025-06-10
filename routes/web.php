@@ -46,6 +46,9 @@ Route::middleware(['society_admin'])->group(function () {
     Route::get('/admin/dashboard', [SocietyDashboard::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/head_profile', [SocietyDashboard::class, 'viewHeadProfile'])->name('admin.viewHeadProfile');
     Route::post('/admin/update_head_profile', [SocietyDashboard::class, 'updateHeadProfile'])->name('admin.updateHeadProfile');
+
+    Route::get('/admin/society_profile', [SocietiesController::class, 'viewSocietyProfile'])->name('admin.viewSocietyProfile');
+
 });
 
 // Route::get('/admin/dashboard', [SocietyDashboard::class, 'index']);

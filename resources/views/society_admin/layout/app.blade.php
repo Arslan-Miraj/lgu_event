@@ -35,8 +35,8 @@
             class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
             Head Profile
         </a>
-        <a href="{{ route('admin.viewHeadProfile') }}"
-            class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+        <a href="{{ route('admin.viewSocietyProfile') }}"
+            class="{{ request()->is('admin.viewSocietyProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
             Society Profile
         </a>
         <a href="{{ route('admin.viewHeadProfile') }}"
