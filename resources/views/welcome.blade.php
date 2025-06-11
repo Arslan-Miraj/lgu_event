@@ -53,7 +53,7 @@
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
 
-    <!-- Event Card Container -->
+    @foreach ($events as $evt)
     <div class="flex flex-col items-center space-y-4">
       <!-- Card -->
       <a href="/event/startup-pitch-night" class="block group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-lime-400/40 transform hover:scale-[1.03] transition duration-300 w-full cursor-pointer" aria-label="View details for Startup Pitch Night">
@@ -65,19 +65,41 @@
         <img src="{{ asset('assets/imgs/w12.jpg') }}" alt="Startup Pitch" class="w-full h-80 object-cover z-10 relative">
 
         <!-- Overlay Content -->
-        <div class="absolute inset-0 bg-black/60 flex flex-col justify-end text-left p-8 z-20">
-          <p class="text-lime-400 font-bold text-base mb-1">Organized by: Entrepreneur Society</p>
-          <p class="text-white text-sm">📍 Conference Room</p>
-          <p class="text-white text-sm">⏱️ May 2, 2025 — 5 PM to 8 PM</p>
-        </div>
+        <!-- Overlay Content -->
+<div class="absolute inset-0 bg-black/60 flex items-end z-20 p-6">
+  <div class="bg-black/70 w-full rounded-xl p-4 space-y-2 shadow-md">
+
+    <!-- Organized By -->
+    <p class="text-lime-400 text-sm font-medium flex items-center">
+      <span class="mr-2">👥</span>
+      Organized by: <span class="ml-1 font-semibold">{{ $evt->society->name }}</span>
+    </p>
+
+    <!-- Location -->
+    <p class="text-white text-sm flex items-center">
+      <span class="mr-2">📍</span>
+      {{ $evt->location }}
+    </p>
+
+    <!-- Date & Time -->
+    <p class="text-white text-sm flex items-center">
+      <span class="mr-2">🕒</span>
+      {{ \Carbon\Carbon::parse($evt->event_date)->format('M d, Y') }} —
+      {{ \Carbon\Carbon::parse($evt->start_time)->format('g:i A') }} to
+      {{ \Carbon\Carbon::parse($evt->end_time)->format('g:i A') }}
+    </p>
+
+  </div>
+</div>
+
 
       </a>
 
 
       <!-- Event Name Below Card -->
-      <h4 class="text-lime-500 text-2xl font-semibold">Startup Pitch Night</h4>
+      <h4 class="text-lime-500 text-2xl font-semibold">{{ $evt->title }}</h4>
     </div>
-
+    @endforeach
     <!-- Copy above card block for more events -->
 
   </div>

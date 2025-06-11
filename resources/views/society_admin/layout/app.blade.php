@@ -22,8 +22,8 @@
             Add Society
         </a> --}}
 
-        <a href="#"
-            class="{{ request()->is('assign_admin') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+        <a href="{{ route('admin.viewEvent') }}"
+            class="{{ request()->is('admin.viewEvent') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
             Create Event
         </a>
 

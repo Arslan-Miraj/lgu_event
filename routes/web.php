@@ -1,14 +1,18 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\SocietiesController;
-use App\Http\Controllers\SocietyDashboard;
-use App\Http\Controllers\SuperAdminDashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\SocietyDashboard;
+use App\Http\Controllers\SocietiesController;
+use App\Http\Controllers\SuperAdminDashboardController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/upcoming-events', [HomeController::class, 'upcoming_events'])->name('upcoming_events');
 
 Route::get('/account/register', [AuthController::class, 'register'])->name('account.register');
 Route::post('/account/register-process', [AuthController::class, 'registerProcess'])->name('account.registerProcess');
@@ -48,6 +52,10 @@ Route::middleware(['society_admin'])->group(function () {
     Route::post('/admin/update_head_profile', [SocietyDashboard::class, 'updateHeadProfile'])->name('admin.updateHeadProfile');
 
     Route::get('/admin/society_profile', [SocietiesController::class, 'viewSocietyProfile'])->name('admin.viewSocietyProfile');
+
+
+    Route::get('/admin/event', [EventController::class, 'index'])->name('admin.viewEvent');
+    Route::post('/admin/create-event', [EventController::class, 'create_event'])->name('admin.createEvent');
 
 });
 
