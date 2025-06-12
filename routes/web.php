@@ -8,9 +8,13 @@ use App\Http\Controllers\SocietyDashboard;
 use App\Http\Controllers\SocietiesController;
 use App\Http\Controllers\SuperAdminDashboardController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
+Route::get('/event_detail', function () {
+    return view('society_admin.event_details');
+});
+
+Route::get('/event_list', function () {
+    return view('society_admin.event_list');
+}); 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/upcoming-events', [HomeController::class, 'upcoming_events'])->name('upcoming_events');
 

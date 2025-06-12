@@ -57,54 +57,36 @@
     <div class="flex flex-col items-center space-y-4">
       <!-- Card -->
       <a href="/event/startup-pitch-night" class="block group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-lime-400/40 transform hover:scale-[1.03] transition duration-300 w-full cursor-pointer" aria-label="View details for Startup Pitch Night">
-
-        <!-- Decorative Top Line -->
-        <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-lime-400 rounded-full shadow-md z-30"></div>
-
-        <!-- Event Image -->
-        <img src="{{ asset('assets/imgs/w12.jpg') }}" alt="Startup Pitch" class="w-full h-80 object-cover z-10 relative">
-
-        <!-- Overlay Content -->
-        <!-- Overlay Content -->
-<div class="absolute inset-0 bg-black/60 flex items-end z-20 p-6">
-  <div class="bg-black/70 w-full rounded-xl p-4 space-y-2 shadow-md">
-
-    <!-- Organized By -->
-    <p class="text-lime-400 text-sm font-medium flex items-center">
-      <span class="mr-2">👥</span>
-      Organized by: <span class="ml-1 font-semibold">{{ $evt->society->name }}</span>
-    </p>
-
-    <!-- Location -->
-    <p class="text-white text-sm flex items-center">
-      <span class="mr-2">📍</span>
-      {{ $evt->location }}
-    </p>
-
-    <!-- Date & Time -->
-    <p class="text-white text-sm flex items-center">
-      <span class="mr-2">🕒</span>
-      {{ \Carbon\Carbon::parse($evt->event_date)->format('M d, Y') }} —
-      {{ \Carbon\Carbon::parse($evt->start_time)->format('g:i A') }} to
-      {{ \Carbon\Carbon::parse($evt->end_time)->format('g:i A') }}
-    </p>
-
-  </div>
-</div>
+        <img src="{{ asset('storage/' . $evt->poster) }}" alt="Event Poster" class="w-full h-80 object-cover z-10 relative">
+        <div class="absolute inset-0 bg-black/60 flex items-end z-20 p-6">
+            <div class="bg-black/70 w-full rounded-xl p-4 space-y-2 shadow-md">
 
 
+            <p class="text-lime-400 text-sm font-medium flex items-center">
+              <span class="mr-2">👥</span>
+              Organized by: <span class="ml-1 font-semibold">{{ $evt->society->name }}</span>
+            </p>
+
+            <p class="text-white text-sm flex items-center">
+              <span class="mr-2">📍</span>
+              {{ $evt->location }}
+            </p>
+            <p class="text-white text-sm flex items-center">
+              <span class="mr-2">🕒</span>
+              {{ \Carbon\Carbon::parse($evt->event_date)->format('M d, Y') }} —
+              {{ \Carbon\Carbon::parse($evt->start_time)->format('g:i A') }} to
+              {{ \Carbon\Carbon::parse($evt->end_time)->format('g:i A') }}
+            </p>
+
+          </div>
+        </div>
       </a>
 
-
-      <!-- Event Name Below Card -->
       <h4 class="text-lime-500 text-2xl font-semibold">{{ $evt->title }}</h4>
     </div>
     @endforeach
-    <!-- Copy above card block for more events -->
-
   </div>
 
-  <!-- View All Button -->
   <div class="mt-12">
     <a href="#" class="inline-block bg-lime-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-lime-500 transition">
       View All Events
@@ -156,21 +138,20 @@
   <!-- Our Societies -->
 <section id="societies" class="py-20 px-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-center">
   <h3 class="text-4xl font-bold mb-12 text-lime-400 tracking-wide">🌟 Our Societies</h3>
-
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto ">
-    <!-- Society Card -->
+    @foreach ($society as $soc)
     <a href="#"
        class="bg-gray-800 rounded-2xl shadow-lg hover:shadow-lime-400/40 hover:scale-[1.02] transform transition-all duration-300 p-6 text-left ">
       
       <div class="flex items-center space-x-4 mb-4">
-        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041880.png"
+        <img src=""
              alt="Tech Society"
              class="w-16 h-16 object-cover rounded-full border-2 border-lime-400 shadow-md">
-        <h4 class="text-2xl font-bold text-white ">Tech Society</h4>
+        <h4 class="text-2xl font-bold text-white ">{{ $soc->name }}</h4>
       </div>
 
       <p class="text-gray-300 text-md leading-relaxed">
-        Hosts coding competitions, hackathons, and technical workshops for LGU students.
+        {{ $soc->description }}
       </p>
 
       <div class="mt-4">
@@ -179,31 +160,9 @@
         </span>
       </div>
     </a>
-
-    <!-- Another Society Card -->
-    <a href="#"
-       class="bg-gray-800 rounded-2xl shadow-lg hover:shadow-lime-400/40 hover:scale-[1.02] transform transition-all duration-300 p-6 text-left">
-      
-      <div class="flex items-center space-x-4 mb-4">
-        <img src="https://cdn-icons-png.flaticon.com/512/3449/3449338.png"
-             alt="Arts Club"
-             class="w-16 h-16 object-cover rounded-full border-2 border-lime-400 shadow-md">
-        <h4 class="text-2xl font-bold text-white">Arts Club</h4>
-      </div>
-
-      <p class="text-gray-300 text-sm leading-relaxed">
-        Focuses on cultural exhibitions, drama performances, and art showcases.
-      </p>
-
-      <div class="mt-4">
-        <span class="inline-block bg-lime-500 text-black px-3 py-1 text-sm rounded-full font-semibold">
-          View Members
-        </span>
-      </div>
-    </a>
-
-    <!-- Add more cards below as needed -->
+  @endforeach
   </div>
+
 </section>
 
 

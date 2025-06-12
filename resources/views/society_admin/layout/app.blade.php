@@ -10,44 +10,55 @@
 <body class="bg-gray-900 text-white min-h-screen flex">
 
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4">
-    <h2 class="text-2xl font-bold text-lime-400 mb-6">Super Admin</h2>
-    <nav class="flex flex-col space-y-2">
-        {{-- <a href="{{ route('super.admin.dashboard') }}"
-            class="{{ request()->routeIs('super.admin.dashboard') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            Dashboard
-        </a>
-        <a href="{{ route('super.admin.addSociety') }}"
-            class="{{ request()->routeIs('super.admin.addSociety') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            Add Society
-        </a> --}}
+<aside class="fixed top-0 left-0 h-screen w-64 bg-gray-800 text-white flex flex-col justify-between p-4 shadow-lg z-50">
 
-        <a href="{{ route('admin.viewEvent') }}"
-            class="{{ request()->is('admin.viewEvent') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            Create Event
-        </a>
+    <!-- Top: Navigation -->
+    <div>
+        <h2 class="text-2xl font-bold text-lime-400 mb-6">Super Admin</h2>
+        <nav class="flex flex-col space-y-2">
 
-        {{-- <a href="#"
-            class="{{ request()->is('view_events') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            View Events
-        </a> --}}
-        <a href="{{ route('admin.viewHeadProfile') }}"
-            class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            Head Profile
-        </a>
-        <a href="{{ route('admin.viewSocietyProfile') }}"
-            class="{{ request()->is('admin.viewSocietyProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            Society Profile
-        </a>
-        <a href="{{ route('admin.viewHeadProfile') }}"
-            class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
-            Members Profile
-        </a>
-    </nav>
-    <form action="{{ route('account.logout') }}" method="POST" class="mt-auto">
-      <button type="submit" class="bg-red-600 hover:bg-red-700 text-white w-full py-2 rounded">Logout</button>
-    </form>
-  </aside>
+            <a href="{{ route('admin.viewEvent') }}"
+                class="{{ request()->is('admin.viewEvent') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+                Create Event
+            </a>
+
+            <a href="{{ route('admin.viewHeadProfile') }}"
+                class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+                Head Profile
+            </a>
+
+            <a href="{{ route('admin.viewSocietyProfile') }}"
+                class="{{ request()->is('admin.viewSocietyProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+                Society Profile
+            </a>
+
+            <a href="{{ route('admin.viewHeadProfile') }}"
+                class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+                Members Profile
+            </a>
+        </nav>
+    </div>
+
+    <!-- Bottom: Profile & Logout -->
+    <div class="space-y-4">
+        <div class="flex items-center space-x-3 bg-gray-700 rounded-lg p-3">
+            <img src="" alt="Society"
+                class="w-12 h-12 rounded-full object-cover border-2 border-lime-400">
+            <div>
+                <p class="text-sm font-semibold text-white"></p>
+                <p class="text-xs text-gray-300">Society</p>
+            </div>
+        </div>
+
+        <form action="{{ route('account.logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white w-full py-2 rounded">
+                Logout
+            </button>
+        </form>
+    </div>
+</aside>
+
 
 
     <!-- Main Content -->

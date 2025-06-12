@@ -61,7 +61,7 @@
         <div>
           <label class="block text-sm font-semibold text-white mb-2">Event Poster</label>
           <div class="bg-gray-700 border-2 border-dashed border-lime-400 rounded-lg p-6 text-center text-gray-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-2 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="" class="w-12 h-12 mx-auto mb-2 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M7 16V4m0 0L3.5 7.5M7 4l3.5 3.5M17 8v12m0 0l-3.5-3.5M17 20l3.5-3.5" />
             </svg>
@@ -125,8 +125,8 @@
                         $('#success').removeClass('hidden');
                         setTimeout(() => {
                         $('#success').addClass('hidden');
-                        window.location.href = '{{ route("admin.updateHeadProfile") }}';
-                        $('#societyForm')[0].reset();
+                        window.location.href = '{{ route("admin.dashboard") }}';
+                        $('#eventForm')[0].reset();
                         }, 2000);
                         
                     }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SocietiesController extends Controller
 {
+
     public function registerSociety(Request $request){
         $validation = Validator::make($request->all(), [
             'society_name' => 'required|string|unique:societies,name',
