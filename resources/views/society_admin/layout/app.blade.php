@@ -61,8 +61,9 @@
 
 
 
-    <!-- Main Content -->
-    @yield('main_content')
+    <div class="flex-1 ml-64">
+        @yield('main_content')
+    </div>
 
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
   <script src="{{ asset('js/customJS.js') }}"></script>
