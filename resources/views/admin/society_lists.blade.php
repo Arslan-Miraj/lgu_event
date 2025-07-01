@@ -48,7 +48,10 @@
           <td class="px-6 py-4 space-x-2">
             <a href="{{ route('super.admin.edit_society', $society->id) }}" 
                 class="text-lime-400 hover:underline open-modal"
-                data-id="{{ $society->id }}">
+                data-id="{{ $society->id }}"
+                data-name="{{ $society->name }}"
+                data-admin-name="{{ $society->head->name }}"
+                data-admin-email="{{ $society->head->email }}">
                 Edit
             </a>
             <a href="#" class="text-red-500 hover:underline">Delete</a>
@@ -59,15 +62,6 @@
       </tbody>
     </table>
   </div>
-
-  <!-- Pagination -->
-  {{-- <div class="mt-6 flex justify-center space-x-2 text-white">
-    <button class="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700">Prev</button>
-    <button class="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700">1</button>
-    <button class="px-3 py-1 bg-gray-700 rounded font-bold">2</button>
-    <button class="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700">3</button>
-    <button class="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700">Next</button>
-  </div> --}}
 </main>
 
 
@@ -78,59 +72,60 @@
     <form id="editForm" method="POST" action="">
       <input type="hidden" name="id" id="edit-id">
       <div class="mb-4">
-          <label for="societyName" class="block text-sm font-medium mb-2">Society Name</label>
-          <input
-            type="text"
-            id="societyName"
-            name="society_name"
-            value="{{ $society->name }}"
-            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
-          />
-        </div>
+        <label for="societyName" class="block text-sm font-medium mb-2">Society Name</label>
+        <input
+          type="text"
+          id="societyName"
+          name="society_name"
+          value="{{ $society->name }}"
+          class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
+        />
+      </div>
 
         <!-- Admin Name -->
-        <div class="mb-4">
-          <label for="adminName" class="block text-sm font-medium mb-2">Admin Name</label>
-          <input
-            type="text"
-            id="adminName"
-            name="admin_name"
-            value="{{ $society->head->name }}"
-            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
-          />
-        </div>
+      <div class="mb-4">
+        <label for="adminName" class="block text-sm font-medium mb-2">Admin Name</label>
+        <input
+          type="text"
+          id="adminName"
+          name="admin_name"
+          value="{{ $society->head->name }}"
+          class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
+        />
+      </div>
 
         <!-- Admin Email -->
-        <div class="mb-4">
-          <label for="adminEmail" class="block text-sm font-medium mb-2">Admin Email</label>
-          <input
-            type="email"
-            id="adminEmail"
-            name="admin_email"
-            value="{{ $society->head->email }}"
-            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
-          />
-        </div>
-        <div class="flex justify-end space-x-3">
+      <div class="mb-4">
+        <label for="adminEmail" class="block text-sm font-medium mb-2">Admin Email</label>
+        <input
+          type="email"
+          id="adminEmail"
+          name="admin_email"
+          value="{{ $society->head->email }}"
+          class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
+        />
+      </div>
 
-            <div class="w-full space-y-2 mb-4">
-                <!-- Error Alert -->
-                <div id="error" class="hidden p-4 text-sm text-red-800 rounded-lg bg-red-200" role="alert">
-                    <ul id="error-list" class="list-none list-inside"></ul>
-                </div>
+      <div class="flex justify-end space-x-3">
 
-                <!-- Success Alert -->
-                <div id="success" class="hidden p-4 text-sm text-green-800 rounded-lg bg-green-200" role="alert">
-                    <span class="font-medium">Society updated successfully.</span>
-                </div>
-            </div>
-            <button 
-                type="button" id="closeModal" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500">Cancel
-            </button>
-            <button 
-                type="submit" class="px-4 py-2 bg-lime-500 text-black font-semibold rounded hover:bg-lime-400">Save
-            </button>
-        </div>
+          <div class="w-full space-y-2 mb-4">
+              <!-- Error Alert -->
+              <div id="error" class="hidden p-4 text-sm text-red-800 rounded-lg bg-red-200" role="alert">
+                  <ul id="error-list" class="list-none list-inside"></ul>
+              </div>
+
+              <!-- Success Alert -->
+              <div id="success" class="hidden p-4 text-sm text-green-800 rounded-lg bg-green-200" role="alert">
+                  <span class="font-medium">Society updated successfully.</span>
+              </div>
+          </div>
+          <button 
+              type="button" id="closeModal" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500">Cancel
+          </button>
+          <button 
+              type="submit" class="px-4 py-2 bg-lime-500 text-black font-semibold rounded hover:bg-lime-400">Save
+          </button>
+      </div>
     </form>
   </div>
 </div>
@@ -138,66 +133,72 @@
 @endsection
 @section('customJS')
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
   $('.open-modal').on('click', function (e) {
     e.preventDefault();
 
-    // Get data attributes from clicked link
-    // const id = $(this).data('id');
-    // const name = $(this).data('name');
-    // const adminName = $(this).data('admin-name');
-    // const adminEmail = $(this).data('admin-email');
+    // Get values from data attributes
+    const id = $(this).data('id');
+    const name = $(this).data('name');
+    const adminName = $(this).data('admin-name');
+    const adminEmail = $(this).data('admin-email');
 
-    // // Set the form inputs with these values
-    // $('#edit-id').val(id);
-    // $('#societyName').val(name);
-    // $('#adminName').val(adminName);
-    // $('#adminEmail').val(adminEmail);
+    // Optional: Log to debug
+    console.log({ id, name, adminName, adminEmail });
+
+    // Set values in modal form inputs
+    $('#edit-id').val(id);
+    $('#societyName').val(name);
+    $('#adminName').val(adminName);
+    $('#adminEmail').val(adminEmail);
 
     // Show the modal
     $('#editModal').removeClass('hidden');
   });
 
+  // Close modal logic
   $('#closeModal').on('click', function () {
     $('#editModal').addClass('hidden');
   });
 });
 
+
 </script>
 
 
 <script>
-  $(document).ready(function () {
-    $('#editForm').submit(function(e){
-        e.preventDefault();
-        $('#error-list').empty();
-        let id = 
-        let url = '{{ route("super.admin.edit_society", ":id") }}'.replace(':id', id);
-        $.ajax({
-            url: url,
-            type: 'post',
-            data: $('#editForm').serializeArray(),
-            dataType: 'json',
-            success: function(response){
-                $('#error').addClass('hidden');
-                $('#success').addClass('hidden');
+  $('#editForm').submit(function(e){
+    e.preventDefault();
+    $('#error-list').empty();
 
-                let errors = response.errors;
-                if (errors && Object.keys(errors).length > 0){
-                    $.each(errors, function(field, message){
-                        $('#error-list').append('<li data-field="' + field + '">' + message + '</li>');
-                    });
-                    $('#error').removeClass('hidden');
-                }
-                else if (response.status == true){
+    let id = $('#edit-id').val(); // Get society ID
+    let url = '{{ route("super.admin.update_society", ":id") }}'.replace(':id', id); // Assume PUT
 
-                }
-                
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: $('#editForm').serialize(),
+        success: function(response){
+            $('#error').addClass('hidden');
+            $('#success').addClass('hidden');
+
+            if (response.errors) {
+                $.each(response.errors, function(field, message){
+                    $('#error-list').append('<li>' + message + '</li>');
+                });
+                $('#error').removeClass('hidden');
+            } else if (response.status) {
+                $('#success').removeClass('hidden');
+                setTimeout(() => location.reload(), 1500);
             }
-        })
-
+        },
+        error: function(xhr) {
+            $('#error-list').append('<li>Something went wrong.</li>');
+            $('#error').removeClass('hidden');
+        }
     });
-  });
+});
+
 </script>
 
 @endsection

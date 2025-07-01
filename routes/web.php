@@ -31,7 +31,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('account.logout'
 Route::middleware(['super_admin'])->group(function () {
     Route::get('/super_admin/dashboard', [SuperAdminDashboardController::class, 'index'])->name('super.admin.dashboard');
     Route::get('/super_admin/societies', [SuperAdminDashboardController::class, 'societies_list'])->name('super.admin.societies_list');
-    Route::post('/super_admin/edit_society/{id}', [SuperAdminDashboardController::class, 'edit'])->name('super.admin.edit_society');
+    Route::get('/super_admin/societies/{id}/edit', [SuperAdminDashboardController::class, 'edit'])->name('super.admin.edit_society');
+    Route::put('/super_admin/societies/{id}', [SuperAdminDashboardController::class, 'update'])->name('super.admin.update_society');
 
 
     Route::get('/super_admin/assign_admin', function () {

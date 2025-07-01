@@ -22,64 +22,39 @@ class SuperAdminDashboardController extends Controller
         return view('admin.society_lists', compact('societies'));
     }
 
-    public function edit(Request $request, $id){
-        $data = Society::find($id);
-        dd($data);
-        $validation = Validator::make($request->all(), [
-            'society_name' => 'required|string',
-            'admin_name' => 'required|string',
-            'admin_email' => 'required|email'
+    public function edit($id)
+    {
+        $society = Society::with('head')->findOrFail($id);
+        // dd($society);
+        return response()->json([
+            'status' => true,
+            'data' => $society
         ]);
-
-         // $user = User::where('email', $request)
-         
-        if ($validation->passes()) {
-    $society = Society::find($request->id);
-
-    if ($society) {
-        $currentAdmin = User::find($society->head_id);
-
-        if ($currentAdmin && $currentAdmin->email === $request->admin_email) {
-            // ✅ Same admin, just update name
-            $currentAdmin->update([
-                'name' => $request->admin_name
-            ]);
-        } else {
-            // 🆕 New email provided, either change admin or create new one
-            $newAdmin = User::where('email', $request->admin_email)->first();
-
-            if (!$newAdmin) {
-                $newAdmin = User::create([
-                    'name' => $request->admin_name,
-                    'email' => $request->admin_email,
-                    'role' => 'admin',
-                    'password' => Hash::make('123456') // default password
-                ]);
-            } else {
-                // Optional: update the new admin name if you want
-                $newAdmin->update([
-                    'name' => $request->admin_name,
-                    'role' => 'admin'
-                ]);
-            }
-
-            // 🔁 Update the society's head to the new admin
-            $society->head_id = $newAdmin->id;
-        }
-
-        // 🎯 Update society name regardless
-        $society->name = $request->society_name;
-        $society->save();
-
-        return response()->json(['status' => true]);
     }
+
+    public function update(Request $request, $id)
+{
+    $validator = Validator::make($request->all(), [
+        'society_name' => 'required|string|max:255',
+        'admin_name' => 'required|string|max:255',
+        'admin_email' => 'required|email|max:255',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()]);
+    }
+
+    $society = Society::findOrFail($id);
+    $society->name = $request->society_name;
+    $society->description = $request->description ?? '';
+    $society->save();
+
+    $head = User::find($society->head_id);
+    $head->name = $request->admin_name;
+    $head->email = $request->admin_email;
+    $head->save();
+
+    return response()->json(['status' => true]);
 }
 
-        else{
-            return response()->json([
-                'status' => false,
-                'errors' => $validation->errors(),
-            ]);
-        }
-    }
 }
