@@ -93,6 +93,7 @@
             $('#success').removeClass('hidden');
             setTimeout(() => {
               $('#success').addClass('hidden');
+              window.location.href = '{{ route("super.admin.dashboard") }}';
               $('#societyForm')[0].reset();
             }, 2000);
           }

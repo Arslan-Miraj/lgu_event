@@ -9,7 +9,7 @@
     <div class="flex flex-wrap gap-4 mb-4">
         <div class="w-96">
             <input
-            type="search"
+            type="search" disabled
             placeholder="Search by society"
             class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-lime-400"
             />
@@ -17,7 +17,7 @@
 
         <div class="w-96">
             <input
-            type="search"
+            type="search" disabled
             placeholder="Search by head"
             class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-lime-400"
             />
@@ -46,7 +46,7 @@
           <td class="px-6 py-4">{{ $society->description }}</td>
           <td class="px-6 py-4">{{ $society->head->name }}</td>
           <td class="px-6 py-4 space-x-2">
-            <a href="#" 
+            <a href="{{ route('super.admin.edit_society', $society->id) }}" 
                 class="text-lime-400 hover:underline open-modal"
                 data-id="{{ $society->id }}">
                 Edit
@@ -83,7 +83,7 @@
             type="text"
             id="societyName"
             name="society_name"
-            placeholder="e.g. Dramatics Society"
+            value="{{ $society->name }}"
             class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
           />
         </div>
@@ -95,7 +95,7 @@
             type="text"
             id="adminName"
             name="admin_name"
-            placeholder="e.g. Ali Raza"
+            value="{{ $society->head->name }}"
             class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
           />
         </div>
@@ -107,7 +107,7 @@
             type="email"
             id="adminEmail"
             name="admin_email"
-            placeholder="e.g. ali.raza@lgu.edu.pk"
+            value="{{ $society->head->email }}"
             class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400 transition duration-200"
           />
         </div>
