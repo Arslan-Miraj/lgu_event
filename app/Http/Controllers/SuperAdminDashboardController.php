@@ -34,27 +34,73 @@ class SuperAdminDashboardController extends Controller
 
     public function update(Request $request, $id)
 {
-    $validator = Validator::make($request->all(), [
+    $request->validate([
         'society_name' => 'required|string|max:255',
         'admin_name' => 'required|string|max:255',
         'admin_email' => 'required|email|max:255',
     ]);
 
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()]);
+    $society = Society::findOrFail($id);
+    $oldHead = User::findOrFail($society->head_id);
+
+    // Check if email is unchanged (same admin)
+    if ($oldHead->email === $request->admin_email) {
+        // Same admin, just update society details
+        $society->name = $request->society_name;
+        $society->description = $request->description ?? '';
+        $society->save();
+
+        // Also update admin name if needed
+        $oldHead->name = $request->admin_name;
+        $oldHead->save();
+
+        return response()->json(['status' => true, 'message' => 'Society updated.']);
     }
 
-    $society = Society::findOrFail($id);
+    // Admin email has changed, check if new email already exists
+    $newAdmin = User::where('email', $request->admin_email)->first();
+
+    if ($newAdmin) {
+        // Check if this user is already a society head
+        $isAlreadyHead = Society::where('head_id', $newAdmin->id)->exists();
+
+        if ($isAlreadyHead) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The selected admin is already a head of another society.'
+            ]);
+        }
+
+        // Assign new head
+        $society->head_id = $newAdmin->id;
+    } else {
+        // Create new user and assign role as head (optional: assign role_id = 2 or 'head')
+        $newAdmin = User::create([
+            'name' => $request->admin_name,
+            'email' => $request->admin_email,
+            'password' => bcrypt('password'), // or send invite email
+        ]);
+
+        $society->head_id = $newAdmin->id;
+
+    }
+
+    // Update society info
     $society->name = $request->society_name;
     $society->description = $request->description ?? '';
     $society->save();
-
-    $head = User::find($society->head_id);
-    $head->name = $request->admin_name;
-    $head->email = $request->admin_email;
-    $head->save();
-
-    return response()->json(['status' => true]);
+    $society->load('head');
+    return response()->json(['status' => true, 'message' => 'Society and head updated.']);
 }
+
+
+    public function delete($id)
+    {
+        $society = Society::findOrFail($id);
+        $society->delete();
+
+        return redirect()->back()->with('success', 'Society deleted successfully.');
+    }
+
 
 }

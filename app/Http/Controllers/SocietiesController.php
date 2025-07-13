@@ -74,4 +74,10 @@ class SocietiesController extends Controller
     public function viewSocietyProfile(){
         return view("society_admin.society_profile");
     }
+
+    public function saveSocietyProfile(Request $request){
+        
+    }
+
+
 }

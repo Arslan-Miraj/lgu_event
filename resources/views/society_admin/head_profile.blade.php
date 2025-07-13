@@ -39,6 +39,27 @@
         </div>
       </div>
 
+      <div>
+        <label class="block text-sm font-medium text-gray-300 mb-1">Society Head Image</label>
+        <label for="headImage"
+          class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-600 rounded-md cursor-pointer bg-gray-700 hover:bg-gray-600 transition">
+          <div class="flex flex-col items-center py-2">
+            <svg class="w-6 h-6 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M7 16V4a1 1 0 011-1h8a1 1 0 011 1v12m-4-4l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+            <p class="text-xs text-gray-300">Click or drag to upload (Max 2MB)</p>
+          </div>
+          <input id="headImage" type="file" class="hidden" name="headImage" accept=".png, .jpg, .jpeg" />
+        </label>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-300 mb-1">Message from Head</label>
+        <textarea name="message" rows="2" placeholder="Write a message..."
+          class="w-full bg-gray-700 text-white rounded-md p-2 resize-none"></textarea>
+      </div>
+
       <div class="flex justify-between items-center space-x-4">
           <div class="flex-1 max-w-xl min-w-[300px]">
             <div id="error" class="hidden p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-600 dark:bg-red-400 dark:text-red-800" role="alert">
@@ -76,10 +97,14 @@
       e.preventDefault();
       $('#error-list').empty();
 
+      const form = $('#updateBasicInfo')[0];
+      const formData = new FormData(form);
       $.ajax({
         url: '{{ route("admin.updateHeadProfile") }}',
         type: 'post',
-        data: $('#updateBasicInfo').serializeArray(),
+        data: formData,
+        processData: false, // ⛔ don't process data
+        contentType: false, // ⛔ don't set content-type
         dataType: 'json',
         success: function(response){
           $('#error').addClass('hidden');

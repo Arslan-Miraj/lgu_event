@@ -42,27 +42,27 @@ class SocietyDashboard extends Controller
         if ($validation->passes()){
 
             $user = auth()->user();
-            // dd($user);
+            $path = $user->image;
+
+
+            if ($request->hasFile('headImage')){
+                $path = $request->file('headImage')->store('head_images', 'public');
+            }
+
+
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'contact_no' => $request->contact_no,
-                'plain_password' => $request->password
+                'plain_password' => $request->password,
+                'image' => $path,
+                'message' => $request->message
             ]);
 
             return response()->json([
                 'status' => true,
             ]);
-            // $path = $request->file('headImage')->store('head_images', 'public');
-
-            // $result  = $society->update([
-            //     'head_contact' => $request->contact_no,
-            //     'head_image' => $path,
-            //     'head_message' => $request->message
-            // ]);
-
-            // \Log::info('Update result', ['success' => $result]);
         }
         else{
             return response()->json([

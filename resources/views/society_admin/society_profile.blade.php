@@ -4,32 +4,14 @@
 
   {{-- Form 2: Head Profile Info --}}
   <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-lg p-4">
-    <h2 class="text-xl font-bold text-lime-400 mb-4">Head Profile</h2>
+    <h2 class="text-xl font-bold text-lime-400 mb-4">Society Profile</h2>
 
     <form id="updateSocietyProfile" enctype="multipart/form-data" class="space-y-4">
       
       <!-- Head Image -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-1">Society Head Image</label>
-        <label for="headImage"
-          class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-600 rounded-md cursor-pointer bg-gray-700 hover:bg-gray-600 transition">
-          <div class="flex flex-col items-center py-2">
-            <svg class="w-6 h-6 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M7 16V4a1 1 0 011-1h8a1 1 0 011 1v12m-4-4l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-            <p class="text-xs text-gray-300">Click or drag to upload (Max 2MB)</p>
-          </div>
-          <input id="headImage" type="file" class="hidden" name="headImage" accept=".png, .jpg, .jpeg" />
-        </label>
-      </div>
 
       <!-- Message -->
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-1">Message from Head</label>
-        <textarea name="message" rows="2" placeholder="Write a message..."
-          class="w-full bg-gray-700 text-white rounded-md p-2 resize-none"></textarea>
-      </div>
+      
 
       <!-- Description -->
       <div>

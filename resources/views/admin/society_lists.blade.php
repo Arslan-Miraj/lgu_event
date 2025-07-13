@@ -46,19 +46,30 @@
           <td class="px-6 py-4">{{ $society->description }}</td>
           <td class="px-6 py-4">{{ $society->head->name }}</td>
           <td class="px-6 py-4 space-x-2">
-            <a href="{{ route('super.admin.edit_society', $society->id) }}" 
-                class="text-lime-400 hover:underline open-modal"
-                data-id="{{ $society->id }}"
-                data-name="{{ $society->name }}"
-                data-admin-name="{{ $society->head->name }}"
-                data-admin-email="{{ $society->head->email }}">
-                Edit
+          <!-- Edit Button -->
+            <a href="#" 
+              class="text-lime-400 hover:underline open-modal"
+              data-id="{{ $society->id }}"
+              data-name="{{ $society->name }}"
+              data-admin-name="{{ $society->head->name }}"
+              data-admin-email="{{ $society->head->email }}">
+              Edit
             </a>
-            <a href="#" class="text-red-500 hover:underline">Delete</a>
+
+            <!-- Delete Form Button -->
+            <form action="{{ route('super.admin.delete_society', $society->id) }}" method="POST" class="inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" 
+                        onclick="return confirm('Are you sure you want to delete this society?')"
+                        class="text-red-500 hover:underline">
+                    Delete
+                </button>
+            </form>
           </td>
+
         </tr>
         @endforeach
-        <!-- More rows dynamically generated -->
       </tbody>
     </table>
   </div>
@@ -143,9 +154,6 @@ $(document).ready(function () {
     const adminName = $(this).data('admin-name');
     const adminEmail = $(this).data('admin-email');
 
-    // Optional: Log to debug
-    console.log({ id, name, adminName, adminEmail });
-
     // Set values in modal form inputs
     $('#edit-id').val(id);
     $('#societyName').val(name);
@@ -198,6 +206,9 @@ $(document).ready(function () {
         }
     });
 });
+
+
+
 
 </script>
 

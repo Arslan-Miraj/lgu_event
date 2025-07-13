@@ -33,6 +33,7 @@ Route::middleware(['super_admin'])->group(function () {
     Route::get('/super_admin/societies', [SuperAdminDashboardController::class, 'societies_list'])->name('super.admin.societies_list');
     Route::get('/super_admin/societies/{id}/edit', [SuperAdminDashboardController::class, 'edit'])->name('super.admin.edit_society');
     Route::put('/super_admin/societies/{id}', [SuperAdminDashboardController::class, 'update'])->name('super.admin.update_society');
+    Route::delete('/super_admin/societies/{id}', [SuperAdminDashboardController::class, 'delete'])->name('super.admin.delete_society');
 
 
     Route::get('/super_admin/assign_admin', function () {
