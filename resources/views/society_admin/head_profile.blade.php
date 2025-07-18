@@ -40,24 +40,21 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-300 mb-1">Society Head Image</label>
-        <label for="headImage"
-          class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-600 rounded-md cursor-pointer bg-gray-700 hover:bg-gray-600 transition">
-          <div class="flex flex-col items-center py-2">
-            <svg class="w-6 h-6 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M7 16V4a1 1 0 011-1h8a1 1 0 011 1v12m-4-4l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-            <p class="text-xs text-gray-300">Click or drag to upload (Max 2MB)</p>
-          </div>
-          <input id="headImage" type="file" class="hidden" name="headImage" accept=".png, .jpg, .jpeg" />
-        </label>
+        <label class="block text-sm font-semibold text-white mb-2">Head Image</label>
+        <div class="bg-gray-700 border-2 border-dashed border-lime-400 rounded-lg p-6 text-center text-gray-300">
+          <svg xmlns="" class="w-12 h-12 mx-auto mb-2 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M7 16V4m0 0L3.5 7.5M7 4l3.5 3.5M17 8v12m0 0l-3.5-3.5M17 20l3.5-3.5" />
+          </svg>
+          <p class="mb-2">Drag & drop your event poster or click below</p>
+          <input type="file" name="headImage" class="w-full rounded-full mt-2 text-sm bg-gray-800 text-white file:bg-lime-400 file:text-black file:px-4 file:py-2 file:rounded-full file:border-none">
+        </div>
       </div>
 
       <div>
         <label class="block text-sm font-medium text-gray-300 mb-1">Message from Head</label>
         <textarea name="message" rows="2" placeholder="Write a message..."
-          class="w-full bg-gray-700 text-white rounded-md p-2 resize-none"></textarea>
+          class="w-full bg-gray-700 text-white rounded-md p-2 resize-none">{{ $user->message }}</textarea>
       </div>
 
       <div class="flex justify-between items-center space-x-4">
@@ -97,7 +94,7 @@
       e.preventDefault();
       $('#error-list').empty();
 
-      const form = $('#updateBasicInfo')[0];
+      const form = $('#updateBasicInfo');
       const formData = new FormData(form);
       $.ajax({
         url: '{{ route("admin.updateHeadProfile") }}',

@@ -1,0 +1,8 @@
+{
+    "name": "LGU EVENT",
+    "short_name": "Lgu Event",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fffffff",
+    "theme_color": "#0000000"
+}

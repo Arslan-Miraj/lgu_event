@@ -58,6 +58,10 @@ Route::middleware(['society_admin'])->group(function () {
     Route::post('/admin/update_head_profile', [SocietyDashboard::class, 'updateHeadProfile'])->name('admin.updateHeadProfile');
 
     Route::get('/admin/society_profile', [SocietiesController::class, 'viewSocietyProfile'])->name('admin.viewSocietyProfile');
+    Route::post('/admin/update_society_profile', [SocietiesController::class, 'updateSocietyProfile'])->name('admin.updateSocietyProfile');
+
+    Route::get('/admin/society_member_profile', [SocietiesController::class, 'viewSocietyMemberProfile'])->name('admin.viewSocietyMemberProfile');
+    
 
 
     Route::get('/admin/event', [EventController::class, 'index'])->name('admin.viewEvent');

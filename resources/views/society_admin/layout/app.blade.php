@@ -32,21 +32,29 @@
                 Society Profile
             </a>
 
-            <a href="{{ route('admin.viewHeadProfile') }}"
-                class="{{ request()->is('admin.viewHeadProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
+            <a href="{{ route('admin.viewSocietyMemberProfile') }}"
+                class="{{ request()->is('admin.viewSocietyMemberProfile') ? 'bg-gray-700 text-lime-400 font-semibold' : 'hover:bg-gray-700' }} px-3 py-2 rounded transition">
                 Members Profile
             </a>
         </nav>
     </div>
 
     <!-- Bottom: Profile & Logout -->
+
+    @php
+    use App\Models\Society;
+
+    $user = auth()->user();
+    $society = Society::where('head_id', $user->id)->first();
+    @endphp
+
     <div class="space-y-4">
         <div class="flex items-center space-x-3 bg-gray-700 rounded-lg p-3">
-            <img src="" alt="Society"
+            <img src="{{ asset('storage/' . $society->logo) }}" alt="Society"
                 class="w-12 h-12 rounded-full object-cover border-2 border-lime-400">
             <div>
-                <p class="text-sm font-semibold text-white"></p>
-                <p class="text-xs text-gray-300">Society</p>
+                {{-- <p class="text-lg font-semibold text-white"></p> --}}
+                <p class="text-md text-gray-300 font-semibold">{{ $society->name }}</p>
             </div>
         </div>
 

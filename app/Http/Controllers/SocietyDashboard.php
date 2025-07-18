@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 // use Log;
+use Storage;
 use App\Models\Society;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,9 +24,8 @@ class SocietyDashboard extends Controller
 
     // Head profile view
     public function viewHeadProfile(){
-        $user = auth()->user();
-        // $society = Society::where('head_id', $user->id)->first();
-        
+
+        $user = auth()->user(); 
         return view('society_admin.head_profile', compact('user'));
     }
 
@@ -38,17 +38,18 @@ class SocietyDashboard extends Controller
             'password' => 'required'
         ]);
 
+        $user = auth()->user();
+        $headImagePath = $user->image;
 
-        if ($validation->passes()){
-
-            $user = auth()->user();
-            $path = $user->image;
-
-
-            if ($request->hasFile('headImage')){
-                $path = $request->file('headImage')->store('head_images', 'public');
+        if ($request->hasFile('headImage')){
+            if ($user->image && Storage::disk('public')->exists($user->image)){
+                Storage::disk('public')->delete($user->image);
             }
 
+            $headImagePath = $request->file('headImage')->store('head_images', 'public');
+        }
+
+        if ($validation->passes()){
 
             $user->update([
                 'name' => $request->name,
@@ -56,10 +57,9 @@ class SocietyDashboard extends Controller
                 'password' => Hash::make($request->password),
                 'contact_no' => $request->contact_no,
                 'plain_password' => $request->password,
-                'image' => $path,
+                'image' => $headImagePath,
                 'message' => $request->message
             ]);
-
             return response()->json([
                 'status' => true,
             ]);

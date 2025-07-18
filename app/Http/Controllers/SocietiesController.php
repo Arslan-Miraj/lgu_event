@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use App\Models\User;
 use App\Models\Society;
 use Illuminate\Http\Request;
@@ -72,12 +73,51 @@ class SocietiesController extends Controller
     }
 
     public function viewSocietyProfile(){
-        return view("society_admin.society_profile");
+        $user = auth()->user();
+        $society = Society::where('head_id', $user->id)->first();
+        return view("society_admin.society_profile", compact('society'));
     }
 
-    public function saveSocietyProfile(Request $request){
+    public function updateSocietyProfile(Request $request){
+
+        $validation = Validator::make($request->all(), [
+            'description' => 'required',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048|dimensions:max_width=192,max_height=192',
+        ]);
+
+        $society_data = Society::find($request->society_id);
+        $society_logo = $society_data->logo;
+
+        if ($request->hasFile('logo')){
+            if ($society_data->logo && Storage::disk('public')->exists($society_data->logo)){
+                Storage::disk('public')->delete($society_data->logo);
+            }
+
+            $society_logo = $request->file('logo')->store('society_logo', 'public');
+        }
+
+        if ($validation->passes()){
+
+            $society_data->update([
+                'logo' => $society_logo,
+                'description' => $request->description,
+            ]);
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => false,
+                'errors' => $validation->errors()
+            ]);
+        }
         
     }
 
+
+    public function viewSocietyMemberProfile(){
+        return view('society_admin.member_profile');
+    }
 
 }
